@@ -34,12 +34,12 @@ formulario.addEventListener('submit', function(evento){
     const { nombre, email, mensaje } = datos;
     
     if (nombre === '' || email === '' || mensaje === ''){
-        mostrarError('Todos los campos son obligatorios');
+        mostrarAlerta('Todos los campos son obligatorios', 'error');
         return; //Corta la ejecucion del codigo
     }
 
     //Enviar el formulario
-    mostrarBien('Se mando el mensaje correctamente');
+    mostrarAlerta('Se mando el mensaje correctamente');
     console.log('El formulario');
 });
 
@@ -50,27 +50,19 @@ function leerTexto(e){
     // console.log(datos);
 }
 
-//Muestra error en pantalla
-function mostrarError(mensaje){
-    const error = document.createElement('P');
-    error.textContent = mensaje;
-    error.classList.add('error');
-    formulario.appendChild(error);
+function mostrarAlerta(mensaje, error=null){
+    const alerta = document.createElement('P');
+    alerta.textContent = mensaje;
 
+    if (error){
+        alerta.classList.add('error');
+    }else{
+        alerta.classList.add('correcto');
+    }
+
+    formulario.appendChild(alerta);
     //Desaparezca despues de 3 segundos
     setTimeout(()=>{
-        error.remove();
+        alerta.remove();
     }, 3000);
-};
-
-function mostrarBien(mensaje){
-    const bien = document.createElement('P');
-    bien.textContent = mensaje;
-    bien.classList.add('correcto');
-    formulario.appendChild(bien);
-
-    //Desaparezca despues de 3 segundos
-    setTimeout(()=>{
-        bien.remove();
-    }, 3000);
-};
+}
